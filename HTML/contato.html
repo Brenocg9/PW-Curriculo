@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/contato.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/3.3.1/parse.min.js" 
+    integrity="sha512-pD+Z+o1kNqJJWBHNIJdCVW6aLD0OLGiQq+lQwacqW9+xWT7f1nH11EFSgfITSZL+QQ4AhsBA0koTKWXyKrR7mw==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="barraMenu">
+            <a href="../index.html"><div class="logo"> 
+                <H2>BRENO CORRÊA</H2>
+                <h5>fotografia</h5>
+            </div></a>
+            <nav class="menuItens">
+                <a href="galeria.html"> Galeria</a>
+                <a href="sobre.html"> Sobre</a>
+                <a href="contato.html"> Contato</a>
+            </nav>
+
+        </div>
+    </header>
+    
+    <div class="tudo">
+        <div class="contatos">
+            <h2 class="intro">Para mais informações, entre em contato pelo email: <h3 id="email">brenocorrea.gomes@gmail.com</h3></h2>
+            <br>
+            <br>
+            <div class="redes-sociais">
+                <div class="item-rede"><img class="rede-logo" src="../img/instagram.png"> <a href="https://www.instagram.com/breno.cg/">Instagram</a></div>
+                <div class="item-rede"><img class="rede-logo" src="../img/linkedin.png"> <a href="#">Linkedin</a></div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <h2 class="intro">Suas obras também podem ser encontradas na Arte Plural Galeria:</h2>
+            <br>
+            <div class="redes-sociais">
+                <div class="item-rede"><img class="rede-logo" src="../img/instagram.png"><a href="https://www.instagram.com/arte_plural_galeria/">Instagram</a></div>
+                <div class="item-rede"><img class="rede-logo" src="../img/email.png"> <a href="#">contato@artepluralgaleria.com.br</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="tudo">
+        <div class="newsletter">
+            <h2 class="newsletter-titulo">Se você quer saber sobre exposições, datas e novos produtos, inscreva-se na nossa newsletter:</h2>
+            <div class="input-newsletter">
+                
+                <p>Nome:</p><input id="input-nome" type="text">
+                <p>E-mail:</p><input id="input-email" type="text">
+
+            </div>
+            <input type="button" value="Enviar" id="botao-newsletter" >
+            <h2 id="resposta"></h2>
+        </div>
+    </div>
+
+    <script>
+        Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+        // Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
+        Parse.initialize(
+          'BzJem3yxk1rVFQSzSQZY9mBAQPQyIMMu5WdisqDO', // This is your Application ID
+          'BVykZi5nG8BMAStwffpPNi7MkhpZFUHpFkVcLmFb' // This is your Javascript key
+        );     
+
+        var inputNome = window.document.getElementById("input-nome");
+        var inputEmail = window.document.getElementById("input-email");
+
+        var botao = window.document.getElementById("botao-newsletter");
+        var resposta = window.document.getElementById("resposta");
+
+
+            const adicionarInscricao = async () => {
+
+                let nome = inputNome.value.trim()
+                if(!nome) {
+                    alert ("Digite um nome!");
+                    return;
+                }
+                let email = inputEmail.value.trim()
+                if(!email) {
+                    alert ("Digite um email!");
+                    return;
+                }
+
+                const novaIncricao = new Parse.Object('IncricoesNewsletter');
+                novaIncricao.set('Nome', nome);
+                novaIncricao.set('Email', email);
+                try {
+                    const result = await novaIncricao.save();
+                    
+                    console.log('Inscrição enviada!', result);
+                    resposta.innerHTML = "Inscrição enviada!"
+                } catch (error) {
+                    console.error('Error while creating IncricoesNewsletter: ', error);
+                    resposta.innerHTML = "Erro na incrição"
+                }
+            }
+
+        botao.onclick = adicionarInscricao;
+
+    </script>
+</body>
+</html>
